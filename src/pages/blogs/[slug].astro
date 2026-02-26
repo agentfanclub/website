@@ -6,7 +6,7 @@ import { getCollection, render } from "astro:content";
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
-    params: { slug: post.id },
+    params: { slug: post.id.replace(/\/index$/, "") },
     props: { post },
   }));
 }
@@ -254,8 +254,28 @@ const formattedDate = new Date(post.data.date).toLocaleDateString("en-US", {
 
   .prose img {
     max-width: 100%;
+    display: block;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    border: 2px solid oklch(0.28 0.006 285 / 0.1);
+    border-radius: 2px;
+  }
+
+  .prose figure {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
-    border: 2px solid oklch(0.28 0.006 285 / 0.1);
+  }
+
+  .prose figure img {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .prose figcaption {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    color: oklch(0.28 0.006 285 / 0.55);
+    margin-top: 0.5rem;
+    text-align: center;
   }
 </style>
