@@ -6,7 +6,7 @@ const projectsCollection = await getCollection('projects');
 projectsCollection.sort((a, b) => a.data.order - b.data.order);
 
 const projects = projectsCollection.map((project, index) => ({
-  id: `3.${index + 1}`,
+  id: `3.1.${index + 1}`,
   name: project.data.name,
   desc: project.data.desc,
   tech: project.data.tech,
@@ -81,7 +81,7 @@ const statusClasses: Record<string, string> = {
 
     <div class="relative mt-16 border-l-4 border-blue-700 py-6 pl-8">
       <div class="absolute -left-[10px] top-6 h-4 w-4 rotate-45 animate-pulse bg-blue-700" aria-hidden="true"></div>
-      <h3 class="mb-6 text-xl font-semibold tracking-wide">3.5 Project Participation</h3>
+      <h3 class="mb-6 text-xl font-semibold tracking-wide">3.2 Project Participation</h3>
       <p class="max-w-3xl text-sm leading-relaxed text-stone-950/80">
         Members can join any active project by attending our weekly sessions or by contacting the project lead(s).
       </p>
