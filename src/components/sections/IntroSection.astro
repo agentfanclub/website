@@ -5,13 +5,32 @@ import { getCollection } from 'astro:content';
 
 const staticStats = await getCollection('stats');
 const discordStats = await getCollection('discordStats');
-const allStats = [...staticStats, ...discordStats].sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const projectsCollection = await getCollection('projects');
+const activeProjectCount = projectsCollection.filter(
+  (project) => project.data.status === 'Active',
+).length;
+
+const allStats = [
+  ...staticStats.map((stat) => ({
+    label: stat.data.label,
+    value: stat.data.value,
+    order: stat.data.order,
+  })),
+  {
+    label: 'Projects',
+    value: `${activeProjectCount} Active`,
+    order: 3,
+  },
+  ...discordStats.map((stat) => ({
+    label: stat.data.label,
+    value: stat.data.value,
+    order: stat.data.order,
+  })),
+].sort((a, b) => a.order - b.order);
 
 const stats = allStats.map((stat) => ({
-  label: stat.data.label,
-  value: stat.data.value,
+  label: stat.label,
+  value: stat.value,
 }));
 ---
 
