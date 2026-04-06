@@ -1,0 +1,21 @@
+---
+import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404: Page Not Found">
+  <main class="mx-auto flex min-h-screen max-w-5xl flex-col items-start justify-center px-6 py-16 pb-48">
+    <h1 class="text-4xl font-extrabold tracking-tight text-stone-950 md:text-5xl">
+      Looks like you (or your agent) got lost!
+    </h1>
+    <p class="mt-4 text-lg text-stone-700">
+      It seems the link you clicked is broken or the page has been moved.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex rounded-md border border-stone-300 bg-white px-5 py-3 text-base font-medium text-stone-900 transition hover:border-stone-900 hover:bg-stone-100"
+    >
+      Return to Homepage
+    </a>
+  </main>
+</BaseLayout>
