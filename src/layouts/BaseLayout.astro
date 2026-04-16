@@ -68,10 +68,6 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
     <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body class="relative bg-stone-50 text-stone-950 antialiased font-['Space_Grotesk']">
-    <div
-      class="pointer-events-none fixed inset-0 z-[9999] bg-[repeating-linear-gradient(0deg,transparent,transparent_1px,rgba(0,0,0,0.03)_1px,rgba(0,0,0,0.03)_2px)]"
-      aria-hidden="true"
-    ></div>
     <slot />
   </body>
 </html>
