@@ -11,4 +11,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  redirects: {
+    "/discord": { status: 302, destination: "https://discord.gg/gWUnUwenSV" },
+  },
 });
