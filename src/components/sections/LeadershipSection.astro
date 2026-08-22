@@ -48,7 +48,7 @@ const hierarchyLines = [
           aria-hidden="true"
         ></div>
 
-        <p class="relative z-10 mb-6 font-['JetBrains_Mono'] text-[11px] font-bold tracking-[0.15em] text-stone-400">
+        <p class="relative z-10 mb-6 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-stone-500">
           Organizational Hierarchy
         </p>
         <div class="relative z-10 space-y-2 font-['JetBrains_Mono'] text-sm leading-loose">
@@ -75,19 +75,19 @@ const hierarchyLines = [
                 <p class="text-2xl font-semibold transition-transform duration-200 group-hover:translate-x-1">{leader.name}</p>
                 <a
                   href={`mailto:${leader.email}`}
-                  class="mt-2 block font-['JetBrains_Mono'] text-xs opacity-60 transition-colors duration-200 hover:text-blue-700"
+                  class="mt-2 block font-['JetBrains_Mono'] text-xs opacity-80 transition-colors duration-200 hover:text-blue-700"
                 >
                   {leader.email}
                 </a>
               </div>
 
               <div>
-                <p class="mb-2 font-['JetBrains_Mono'] text-[11px] font-semibold tracking-[0.1em] text-stone-600">Position</p>
+                <p class="mb-2 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Position</p>
                 <p class="text-base">{leader.role}</p>
               </div>
 
               <div>
-                <p class="mb-2 font-['JetBrains_Mono'] text-[11px] font-semibold tracking-[0.1em] text-stone-600">Focus Area</p>
+                <p class="mb-2 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Focus Area</p>
                 <p class="text-base leading-relaxed">{leader.focus}</p>
               </div>
             </div>
@@ -97,8 +97,8 @@ const hierarchyLines = [
 
       <div class="relative mt-8 overflow-hidden border-l-[3px] border-blue-700 bg-blue-50 p-6">
         <div class="absolute left-0 top-0 h-full w-1 animate-pulse bg-blue-700" aria-hidden="true"></div>
-        <p class="mb-2 ml-4 font-['JetBrains_Mono'] text-[10px] font-bold tracking-[0.15em] text-blue-700">◆ NOTE</p>
-        <p class="ml-4 text-sm leading-relaxed">
+        <p class="mb-2 ml-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-blue-700">◆ NOTE</p>
+        <p class="ml-4 text-base leading-relaxed">
           Please contact a current exec member if you are interested in serving on our exec board.
         </p>
       </div>

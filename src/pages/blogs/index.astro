@@ -61,7 +61,7 @@ const posts = postsCollection.map((post, index) => ({
               <div class="flex items-start justify-between gap-8">
                 <div class="flex-1 space-y-3">
                   <div class="flex flex-wrap items-baseline gap-4">
-                    <span class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950/60 transition-colors duration-200 group-hover:text-blue-700">
+                    <span class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950/70 transition-colors duration-200 group-hover:text-blue-700">
                       {post.id}
                     </span>
                     <h2 class="text-2xl font-semibold tracking-wide transition-all duration-300 group-hover:translate-x-2 group-hover:text-blue-700">
@@ -69,19 +69,19 @@ const posts = postsCollection.map((post, index) => ({
                     </h2>
                   </div>
 
-                  <p class="max-w-2xl text-sm leading-relaxed text-stone-950/60">
+                  <p class="max-w-2xl text-base leading-relaxed text-stone-950/70">
                     {post.description}
                   </p>
 
                   <div class="flex flex-wrap items-center gap-4 md:gap-6">
-                    <span class="font-['JetBrains_Mono'] text-[11px] font-semibold tracking-[0.05em] text-stone-600">
+                    <span class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.05em] text-stone-600">
                       {post.date}
                     </span>
-                    <span class="text-[13px] text-stone-950/60">by {post.author}</span>
+                    <span class="text-sm text-stone-950/70">by {post.author}</span>
                     <div class="flex gap-2">
                       {
                         post.topics.map((topic) => (
-                          <span class="border border-stone-950/20 bg-stone-100 px-2 py-1 font-['JetBrains_Mono'] text-[10px] font-semibold transition-all duration-300 group-hover:border-blue-700 group-hover:bg-blue-50">
+                          <span class="border border-stone-950/20 bg-stone-100 px-2 py-1 font-['JetBrains_Mono'] text-xs font-semibold transition-all duration-300 group-hover:border-blue-700 group-hover:bg-blue-50">
                             {topic}
                           </span>
                         ))
@@ -103,7 +103,7 @@ const posts = postsCollection.map((post, index) => ({
 
     {posts.length === 0 && (
       <div class="border-l-[3px] border-stone-950/20 py-12 pl-8">
-        <p class="font-['JetBrains_Mono'] text-sm text-stone-950/40">No posts yet. Check back soon.</p>
+        <p class="font-['JetBrains_Mono'] text-sm text-stone-950/60">No posts yet. Check back soon.</p>
       </div>
     )}
   </main>
