@@ -59,7 +59,6 @@ export const collections = {
     schema: z.object({
       name: z.string(),
       tier: z.enum(['Gold', 'Silver', 'Bronze']),
-      contribution: z.string(),
       logo: z.string(),
       order: z.number(),
     }),
