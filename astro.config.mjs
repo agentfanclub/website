@@ -13,5 +13,6 @@ export default defineConfig({
   },
   redirects: {
     "/discord": { status: 302, destination: "https://discord.gg/gWUnUwenSV" },
+    "/interest": { status: 302, destination: "https://forms.gle/JQ3wbqFLNd6h3iFRA" },
   },
 });
