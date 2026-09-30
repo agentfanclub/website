@@ -1,20 +1,13 @@
 ---
 interface Props {
-  number: string;
   title: string;
 }
 
-const { number, title } = Astro.props;
+const { title } = Astro.props;
 ---
 
-<div class="group mb-12 flex items-baseline gap-4">
-  <span
-    class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-blue-700 transition-all duration-300 group-hover:tracking-[0.2em]"
-  >
-    {number}
-  </span>
-  <h2 class="text-3xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:text-5xl">
-    {title}
-  </h2>
-  <div class="ml-6 h-px flex-1 self-center bg-stone-950/20"></div>
-</div>
+<!-- The dot matches the section's dot in the nav and footer, so the heading carries its hue. -->
+<h2 class="mb-8 flex items-center gap-3 text-xl font-semibold tracking-[-0.01em] text-ink">
+  <span class="size-2.5 shrink-0 rounded-full bg-hue" aria-hidden="true"></span>
+  {title}
+</h2>

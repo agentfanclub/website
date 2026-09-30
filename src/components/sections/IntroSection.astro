@@ -28,89 +28,73 @@ const allStats = [
   })),
 ].sort((a, b) => a.order - b.order);
 
-const stats = allStats.map((stat) => ({
+const statHues = ['hue-cobalt', 'hue-vermilion', 'hue-jade', 'hue-saffron', 'hue-magenta'];
+
+const stats = allStats.map((stat, i) => ({
   label: stat.label,
   value: stat.value,
+  hue: statHues[i % statHues.length],
 }));
 ---
 
-<section id="overview" class="relative overflow-hidden py-20 md:py-24 scroll-mt-24">
-  <div
-    class="pointer-events-none absolute inset-0 opacity-30 [background:radial-gradient(circle_at_30%_20%,rgba(0,71,255,0.15)_0%,transparent_50%)]"
-    aria-hidden="true"
-  ></div>
+<section class="hue-cobalt pb-20 pt-24 md:pb-24 md:pt-32">
+  <h1 class="text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] md:text-[3.25rem]">
+    Agent Fan Club
+  </h1>
+  <p class="mt-6 max-w-[34rem] text-lg leading-[1.6] text-muted">
+    Agent Fan Club is a student organization in the Association for Computing Machinery at the University of
+    Illinois Urbana-Champaign. We learn about, research, and build with agentic AI.
+  </p>
 
-  <div class="relative mx-auto grid w-full max-w-[1600px] grid-cols-12 gap-8 px-6 md:px-8 lg:gap-12">
-    <div class="col-span-12 space-y-8 lg:col-span-8">
-      <SectionLabel number="1.0" title="Overview" />
+  <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
+    <a
+      href="https://discord.gg/gWUnUwenSV"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-primary"
+    >
+      Join Discord
+    </a>
+  </div>
 
-      <div class="space-y-6">
-        <p class="text-lg leading-[1.7]">
-          The Agent Fan Club is a student organization part of the Association for Computing Machinery at the University of Illinois Urbana-Champaign that promotes learning, research, and innovation in agentic technologies.
-        </p>
-
-        <p class="text-base leading-[1.6] text-stone-950/80">
-          Our mission focuses on three core goals: <strong class="font-semibold text-blue-700">(1)</strong> 
-          giving people hands-on experience with real AI tools so they can learn by doing, 
-          <strong class="font-semibold text-blue-700">(2)</strong> exploring and creating new ways to 
-          interact with these technologies, and <strong class="font-semibold text-blue-700">(3)</strong> 
-          sharing knowledge across the campus community about the growing importance of AI tools and agent-based systems.
-        </p>
-
-        <Callout type="info">
-          This organization is open to all UIUC students regardless of technical background. No prior AI experience
-          required for participation.
-        </Callout>
-      </div>
-
-      <div class="mt-16 border-l-[3px] border-blue-700 pl-8">
-        <div class="relative mb-8">
-          <span class="mb-2 block font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-blue-700">1.1</span>
-          <h3 class="text-2xl font-semibold tracking-wide">Regular Operations</h3>
+  <dl class="mt-20 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4" aria-label="Quick facts">
+    {
+      stats.map((stat) => (
+        <div class:list={[stat.hue, "border-t-2 border-hue pt-4"]}>
+          <dt class="text-sm text-hue-ink">{stat.label}</dt>
+          <dd class="mt-1 text-[15px] font-medium tabular-nums">{stat.value}</dd>
         </div>
+      ))
+    }
+  </dl>
+</section>
 
-        <p class="text-base leading-relaxed">
-          The Agent Fan Club meets weekly on Wednesday evenings from 7:00-8:00 PM in the Siebel Center for Computer
-          Science, Room #1302. 
-        </p>
-      </div>
-    </div>
+<section id="overview" class="hue-cobalt scroll-mt-12 py-16 md:py-20">
+  <SectionLabel title="Overview" />
 
-    <aside class="col-span-12 space-y-6 lg:col-span-4">
-      <div
-        class="group border-2 border-stone-950 bg-white p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]"
-      >
-        <p class="mb-6 border-b-2 border-stone-950/20 pb-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-stone-500">
-          Quick Reference
-        </p>
+  <div class="space-y-6 text-base leading-[1.7]">
+    <p>
+      We give people hands-on experience with real AI tools so they can learn by doing. We try out new ways to
+      work with these tools, and we share what we learn about AI tools and agent-based systems with the rest of
+      campus.
+    </p>
 
-        <div class="space-y-6">
-          {
-            stats.map((stat) => (
-              <div class="group/stat">
-                <p class="mb-2 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-500">
-                  {stat.label}
-                </p>
-                <p class="text-xl font-semibold transition-all duration-200 group-hover:text-blue-400 group-hover:translate-x-1">
-                  {stat.value}
-                </p>
-              </div>
-            ))
-          }
-        </div>
+    <Callout type="info">
+      Any UIUC student can join, whatever their technical background. You don't need prior AI experience.
+    </Callout>
+  </div>
 
-        <div class="mt-8 border-t-2 border-stone-950/20 pt-8">
-          <p class="mb-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-stone-500">Affiliations</p>
-          <div class="space-y-2 text-sm">
-            <a href="#" class="flex cursor-pointer items-center gap-2 transition-colors duration-200 hover:text-blue-400">
-              <span class="text-blue-400">→</span> University of Illinois Urbana-Champaign
-            </a>
-            <a href="#" class="flex cursor-pointer items-center gap-2 transition-colors duration-200 hover:text-blue-400">
-              <span class="text-blue-400">→</span> ACM @ UIUC
-            </a>
-          </div>
-        </div>
-      </div>
-    </aside>
+  <div class="mt-14">
+    <h3 class="text-base font-semibold">Meetings</h3>
+    <p class="mt-2 text-base leading-[1.7] text-muted">
+      We meet every Wednesday from 7:00 to 8:00 PM in the Siebel Center for Computer Science, room 1302.
+    </p>
+  </div>
+
+  <div class="mt-10">
+    <h3 class="text-base font-semibold">Affiliations</h3>
+    <p class="mt-2 text-base leading-[1.7] text-muted">
+      We are part of ACM @ UIUC at the University of Illinois Urbana-Champaign.
+    </p>
   </div>
 </section>

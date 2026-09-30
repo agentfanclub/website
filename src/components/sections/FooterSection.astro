@@ -5,110 +5,89 @@ const discordStats = await getCollection('discordStats');
 const membersEntry = discordStats.find((s) => s.id === 'members');
 const memberCount = membersEntry
   ? membersEntry.data.value.replace(/\D+$/, '')
-  : '—';
+  : null;
 
 const sectionLinks = [
-  { num: "1.0", label: "Overview", href: "#overview" },
-  { num: "2.0", label: "Leadership", href: "#leadership" },
-  { num: "3.0", label: "Projects", href: "#projects" },
-  { num: "4.0", label: "Sponsors", href: "#sponsors" },
-  { num: "5.0", label: "Blog", href: "#blog" },
+  { label: "Overview", href: "/#overview", hue: "hue-cobalt" },
+  { label: "Leadership", href: "/#leadership", hue: "hue-vermilion" },
+  { label: "Projects", href: "/#projects", hue: "hue-jade" },
+  { label: "Sponsors", href: "/#sponsors", hue: "hue-saffron" },
+  { label: "Blog", href: "/#blog", hue: "hue-magenta" },
 ];
 
 const connectLinks = [
-  { label: "Discord Community", url: "https://discord.gg/gWUnUwenSV" },
-  { label: "GitHub Organization", url: "https://github.com/agentfanclub" },
+  { label: "Discord", url: "https://discord.gg/gWUnUwenSV" },
+  { label: "GitHub", url: "https://github.com/agentfanclub" },
   { label: "hello@agentfanclub.org", url: "mailto:hello@agentfanclub.org" },
   { label: "Twitter/X", url: "https://x.com/agentsfanclub" },
 ];
 ---
 
-<footer class="relative overflow-hidden border-t-2 border-stone-950 bg-stone-950 py-16 text-stone-50">
-  <div
-    class="pointer-events-none absolute inset-0 opacity-5 [background:radial-gradient(circle_at_80%_20%,rgba(0,71,255,0.4)_0%,transparent_50%)]"
-    aria-hidden="true"
-  ></div>
+<footer class="mx-auto mt-16 w-full max-w-4xl px-6 pb-16">
+  <div class="border-t border-line pt-14">
+    <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+      <p class="text-base">
+        {memberCount ? `${memberCount}+ students talk about AI agents on our Discord.` : "Students talk about AI agents on our Discord."}
+      </p>
+      <a
+        href="https://discord.gg/gWUnUwenSV"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+      >
+        Join Discord
+      </a>
+    </div>
 
-  <div class="relative mx-auto w-full max-w-[1600px] px-6 md:px-8">
-    <div class="mb-12 grid grid-cols-12 gap-8 lg:gap-12">
-      <div class="col-span-12 md:col-span-6 lg:col-span-4">
-        <p class="mb-4 text-3xl font-bold tracking-tight">Agent Fan Club</p>
-        <div class="space-y-1 text-sm leading-relaxed opacity-85">
+    <div class="mt-16 grid grid-cols-2 gap-8 text-sm sm:grid-cols-[1.4fr_1fr_1fr]">
+      <div class="col-span-2 sm:col-span-1">
+        <p class="font-semibold">Agent Fan Club</p>
+        <address class="mt-3 space-y-0.5 not-italic leading-relaxed text-muted">
           <p>University of Illinois Urbana-Champaign</p>
           <p>Siebel Center for Computer Science</p>
           <p>201 N Goodwin Ave, Urbana, IL 61801</p>
-        </div>
+        </address>
       </div>
 
-      <div class="col-span-6 lg:col-span-2">
-        <p class="mb-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] opacity-70">Sections</p>
-        <div class="space-y-3">
+      <nav aria-label="Sections">
+        <p class="font-medium text-ink">Sections</p>
+        <ul class="mt-3 space-y-2">
           {
             sectionLinks.map((item) => (
-              <a href={item.href} class="group/link flex items-center gap-3 transition-all duration-200 hover:translate-x-2">
-                <span class="font-['JetBrains_Mono'] text-xs font-semibold opacity-70 transition-colors duration-200 group-hover/link:text-blue-400 group-hover/link:opacity-100">
-                  {item.num}
-                </span>
-                <span class="text-sm transition-colors duration-200 group-hover/link:text-blue-400">{item.label}</span>
-              </a>
+              <li>
+                <a href={item.href} class:list={[item.hue, "inline-flex items-center gap-2 text-muted hover:text-hue-ink"]}>
+                  <span class="dot" aria-hidden="true" />
+                  {item.label}
+                </a>
+              </li>
             ))
           }
-        </div>
-      </div>
+        </ul>
+      </nav>
 
-      <div class="col-span-6 lg:col-span-3">
-        <p class="mb-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] opacity-70">Connect</p>
-        <div class="space-y-3">
+      <div>
+        <p class="font-medium text-ink">Connect</p>
+        <ul class="mt-3 space-y-2">
           {
             connectLinks.map((link) => (
-              <a
-                href={link.url}
-                target={link.url.startsWith("http") ? "_blank" : undefined}
-                rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
-                class="group/link flex items-center gap-2 transition-all duration-200 hover:translate-x-2"
-              >
-                <span class="text-xs text-blue-400">→</span>
-                <span class={`text-sm transition-colors duration-200 group-hover/link:text-blue-400 ${link.label.includes("@") ? "font-['JetBrains_Mono']" : ""}`}>
+              <li>
+                <a
+                  href={link.url}
+                  target={link.url.startsWith("http") ? "_blank" : undefined}
+                  rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                  class="break-all text-muted hover:text-cobalt-ink"
+                >
                   {link.label}
-                </span>
-              </a>
+                </a>
+              </li>
             ))
           }
-        </div>
-      </div>
-
-      <div class="col-span-12 lg:col-span-3">
-        <div class="group relative overflow-hidden border-2 border-blue-700 bg-blue-700/10 p-6 backdrop-blur-sm">
-          <div
-            class="absolute right-0 top-0 h-20 w-20 bg-blue-700/20 blur-2xl transition-all duration-700 group-hover:scale-150 group-hover:bg-blue-700/40"
-            aria-hidden="true"
-          ></div>
-
-          <p class="relative z-10 mb-3 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-blue-700">◆ Join Now</p>
-          <p class="relative z-10 mb-4 text-sm leading-relaxed">
-            Connect with {memberCount}+ students building the future of AI
-          </p>
-
-          <a
-            href="https://discord.gg/gWUnUwenSV"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="relative z-10 block border-2 border-stone-50 bg-stone-50 py-3 text-center font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950 transition-all duration-300 hover:border-blue-700 hover:bg-blue-700 hover:text-stone-50"
-          >
-            Discord →
-          </a>
-        </div>
+        </ul>
       </div>
     </div>
 
-    <div class="flex flex-col items-start justify-between gap-4 border-t border-stone-50/20 pt-8 md:flex-row md:items-center">
-      <p class="text-xs opacity-80">©{new Date().getFullYear()} Agent Fan Club. ACM@UIUC is a 501(c)(3) non-profit organization.</p>
-      <div class="flex items-center gap-6">
-        <div class="flex gap-2" aria-hidden="true">
-          <span class="h-2 w-2 animate-pulse bg-blue-400"></span>
-          <span class="h-2 w-2 animate-pulse bg-blue-400 [animation-delay:300ms]"></span>
-        </div>
-      </div>
-    </div>
+    <p class="mt-16 text-sm leading-relaxed text-muted">
+      &copy;{new Date().getFullYear()} Agent Fan Club. ACM@UIUC is a 501(c)(3) non-profit organization.
+    </p>
   </div>
 </footer>

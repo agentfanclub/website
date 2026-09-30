@@ -16,92 +16,52 @@ const discordStats = await getCollection('discordStats');
 const membersEntry = discordStats.find((s) => s.id === 'members');
 const memberCount = membersEntry
   ? membersEntry.data.value.replace(/\D+$/, '')
-  : '—';
+  : null;
 
-const hierarchyLines = [
-  "├─ Exec Board (2)",
-  "├─ Project Leads (3)",
-  `├─ Active Members (${memberCount})`,
-  "└─ Community Contributors (∞)",
+const structure = [
+  { label: "Exec board", count: "2" },
+  { label: "Project leads", count: "3" },
+  ...(memberCount ? [{ label: "Active members", count: memberCount }] : []),
+  { label: "Community contributors", count: "∞" },
 ];
 ---
 
-<section id="leadership" class="relative overflow-hidden border-t-2 border-stone-950 py-20 md:py-24 scroll-mt-24">
-  <div
-    class="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_70%_30%,rgba(0,71,255,0.12)_0%,transparent_60%)]"
-    aria-hidden="true"
-  ></div>
+<section id="leadership" class="hue-vermilion scroll-mt-12 py-16 md:py-20">
+  <SectionLabel title="Leadership" />
 
-  <div class="relative mx-auto grid w-full max-w-[1600px] grid-cols-12 gap-8 px-6 md:px-8 lg:gap-12">
-    <div class="col-span-12 space-y-8 lg:col-span-5">
-      <SectionLabel number="2.0" title="Organization Structure" />
+  <p class="text-base leading-[1.7] text-muted">
+    Current leadership appoints exec board members and project leads based on activity and expertise.
+  </p>
 
-      <div class="space-y-5 text-base leading-relaxed">
-        <p class="opacity-90">Executive Board and Project Lead positions are appointed by current leadership based on activity and expertise.</p>
-      </div>
+  <ul class="mt-10 divide-y divide-line border-t-2 border-b border-t-hue border-b-line">
+    {
+      leaders.map((leader) => (
+        <li class="grid gap-1 py-6 sm:grid-cols-[11rem_1fr] sm:gap-6">
+          <div>
+            <p class="font-medium">{leader.name}</p>
+            <p class="text-sm text-hue-ink">{leader.role}</p>
+          </div>
+          <div>
+            <p class="text-base leading-[1.6]">{leader.focus}</p>
+            <a href={`mailto:${leader.email}`} class="link mt-1 inline-block text-sm text-muted">
+              {leader.email}
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
 
-      <div
-        class="group relative mt-12 overflow-hidden bg-stone-950 p-6 text-stone-50 transition-all duration-300 hover:shadow-[8px_8px_0px_0px_rgba(107,163,255,1)]"
-      >
-        <div
-          class="absolute right-0 top-0 h-32 w-32 bg-blue-400/10 blur-3xl transition-opacity duration-500 group-hover:bg-blue-400/20"
-          aria-hidden="true"
-        ></div>
-
-        <p class="relative z-10 mb-6 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-stone-500">
-          Organizational Hierarchy
-        </p>
-        <div class="relative z-10 space-y-2 font-['JetBrains_Mono'] text-sm leading-loose">
-          {
-            hierarchyLines.map((line) => (
-              <p class="transition-all duration-200 hover:translate-x-2 hover:text-blue-400">{line}</p>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-
-    <div class="col-span-12 space-y-4 lg:col-span-7">
-      {
-        leaders.map((leader, index) => (
-          <article class="group relative border-2 border-stone-950 bg-white p-6 transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:border-blue-700 hover:shadow-[6px_6px_0px_0px_rgba(0,71,255,1)] md:p-8">
-            <div class="absolute right-0 top-0 h-12 w-12 overflow-hidden">
-              <div class="absolute right-0 top-0 h-0 w-0 border-r-[24px] border-t-[24px] border-r-transparent border-t-blue-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div>
-                <p class="mb-2 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-blue-700">2.{index + 1}</p>
-                <p class="text-2xl font-semibold transition-transform duration-200 group-hover:translate-x-1">{leader.name}</p>
-                <a
-                  href={`mailto:${leader.email}`}
-                  class="mt-2 block font-['JetBrains_Mono'] text-xs opacity-80 transition-colors duration-200 hover:text-blue-700"
-                >
-                  {leader.email}
-                </a>
-              </div>
-
-              <div>
-                <p class="mb-2 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Position</p>
-                <p class="text-base">{leader.role}</p>
-              </div>
-
-              <div>
-                <p class="mb-2 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Focus Area</p>
-                <p class="text-base leading-relaxed">{leader.focus}</p>
-              </div>
-            </div>
-          </article>
-        ))
-      }
-
-      <div class="relative mt-8 overflow-hidden border-l-[3px] border-blue-700 bg-blue-50 p-6">
-        <div class="absolute left-0 top-0 h-full w-1 animate-pulse bg-blue-700" aria-hidden="true"></div>
-        <p class="mb-2 ml-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-blue-700">◆ NOTE</p>
-        <p class="ml-4 text-base leading-relaxed">
-          Please contact a current exec member if you are interested in serving on our exec board.
-        </p>
-      </div>
-    </div>
+  <div class="mt-12">
+    <h3 class="text-base font-semibold">Structure</h3>
+    <ul class="mt-3 border-l-2 border-hue pl-4 text-base leading-[1.9] text-muted">
+      {structure.map((row) => (
+        <li>{row.label} <span class="font-medium text-ink tabular-nums">({row.count})</span></li>
+      ))}
+    </ul>
   </div>
+
+  <p class="mt-10 text-base leading-[1.7] text-muted">
+    If you want to join the exec board, contact a current exec member.
+  </p>
 </section>

@@ -1,21 +1,18 @@
 ---
 import "../styles/global.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HeaderSection from "../components/sections/HeaderSection.astro";
 ---
 
-<BaseLayout title="404: Page Not Found">
-  <main class="mx-auto flex min-h-screen max-w-5xl flex-col items-start justify-center px-6 py-16 pb-48">
-    <h1 class="text-4xl font-extrabold tracking-tight text-stone-950 md:text-5xl">
-      Looks like you (or your agent) got lost!
+<BaseLayout title="Page not found - Agent Fan Club">
+  <HeaderSection />
+  <main class="hue-vermilion mx-auto w-full max-w-4xl px-6 pb-40 pt-32">
+    <h1 class="text-[2rem] font-semibold leading-[1.15] tracking-[-0.02em] md:text-[2.5rem]">
+      Page not found
     </h1>
-    <p class="mt-4 text-lg text-stone-700">
-      It seems the link you clicked is broken or the page has been moved.
+    <p class="mt-5 text-lg leading-[1.6] text-muted">
+      The link is broken, or the page moved. Error 404.
     </p>
-    <a
-      href="/"
-      class="mt-8 inline-flex rounded-md border border-stone-300 bg-white px-5 py-3 text-base font-medium text-stone-900 transition hover:border-stone-900 hover:bg-stone-100"
-    >
-      Return to Homepage
-    </a>
+    <a href="/" class="btn btn-quiet mt-10">Go to the homepage</a>
   </main>
 </BaseLayout>

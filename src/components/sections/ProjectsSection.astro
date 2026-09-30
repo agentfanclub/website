@@ -5,86 +5,57 @@ import { getCollection } from 'astro:content';
 const projectsCollection = await getCollection('projects');
 projectsCollection.sort((a, b) => a.data.order - b.data.order);
 
-const projects = projectsCollection.map((project, index) => ({
-  id: `3.1.${index + 1}`,
+const projects = projectsCollection.map((project) => ({
   name: project.data.name,
   desc: project.data.desc,
-  tech: project.data.tech,
+  tech: project.data.tech.split("•").map((t) => t.trim()).filter(Boolean),
   status: project.data.status,
   members: project.data.members,
   leads: project.data.leads,
 }));
 
-const statusClasses: Record<string, string> = {
-  Active: "bg-blue-700 text-white",
-  Beta: "bg-stone-600 text-white",
-  Planning: "bg-stone-200 text-stone-950",
-};
+// Status reads by color: live work in jade, beta in saffron, planned in cobalt.
+const statusHue = {
+  Active: "hue-jade",
+  Beta: "hue-saffron",
+  Planning: "hue-cobalt",
+} as const;
 ---
 
-<section id="projects" class="relative overflow-hidden border-t-2 border-stone-950 py-20 md:py-24 scroll-mt-24">
-  <div
-    class="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_20%_80%,rgba(0,71,255,0.12)_0%,transparent_50%)]"
-    aria-hidden="true"
-  ></div>
+<section id="projects" class="hue-jade scroll-mt-12 py-16 md:py-20">
+  <SectionLabel title="Projects" />
 
-  <div class="relative mx-auto w-full max-w-[1600px] px-6 md:px-8">
-    <SectionLabel number="3.0" title="Active Projects" />
+  <ul class="divide-y divide-line border-t-2 border-b border-t-hue border-b-line">
+    {
+      projects.map((project) => (
+        <li class="py-7">
+          <div class="flex items-baseline justify-between gap-4">
+            <h3 class="text-base font-semibold">{project.name}</h3>
+            <span class:list={[statusHue[project.status], "flex shrink-0 items-center gap-2 text-sm font-medium text-hue-ink"]}>
+              <span class="dot" aria-hidden="true" />
+              {project.status}
+            </span>
+          </div>
 
-    <div class="mb-16 grid grid-cols-1 gap-6 lg:grid-cols-2">
-      {
-        projects.map((project, index) => (
-          <article class="group relative overflow-hidden border-2 border-stone-950 bg-white p-8 transition-all duration-300 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-            <div class="absolute -left-3 -top-3 flex h-10 w-10 items-center justify-center bg-stone-950 font-['JetBrains_Mono'] text-sm font-bold text-stone-50 transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-700">
-              {index + 1}
-            </div>
+          <p class="mt-2 text-base leading-[1.6] text-muted">{project.desc}</p>
 
-            <div class="mb-6 flex items-start justify-between">
-              <span class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950/70 transition-colors duration-200 group-hover:text-blue-700">
-                {project.id}
-              </span>
-              <span
-                class={`border-2 border-stone-950 px-3 py-1 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] transition-colors duration-300 group-hover:border-blue-700 ${statusClasses[project.status]}`}
-              >
-                {project.status}
-              </span>
-            </div>
+          <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tech stack">
+            {project.tech.map((t) => <li class="tag">{t}</li>)}
+          </ul>
 
-            <h3 class="mb-4 text-2xl font-semibold tracking-wide transition-colors duration-300 group-hover:text-blue-700">
-              {project.name}
-            </h3>
+          <p class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
+            <span><span class="font-medium text-ink tabular-nums">{project.members}</span> members</span>
+            {project.leads.length > 0 && <span>Led by {project.leads.join(", ")}</span>}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
 
-            <p class="mb-6 text-base leading-relaxed text-stone-950/80">{project.desc}</p>
-
-            <div class="space-y-3 border-t-2 border-stone-950/10 pt-6">
-              <div class="flex items-baseline gap-3 transition-transform duration-200 hover:translate-x-1">
-                <span class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Stack</span>
-                <span class="text-sm">{project.tech}</span>
-              </div>
-              <div class="flex items-baseline gap-3 transition-transform duration-200 hover:translate-x-1">
-                <span class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Team</span>
-                <span class="text-sm">{project.members} members</span>
-              </div>
-              {project.leads.length > 0 && (
-                <div class="flex items-baseline gap-3 transition-transform duration-200 hover:translate-x-1">
-                  <span class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-600">Leads</span>
-                  <span class="text-sm">{project.leads.join(', ')}</span>
-                </div>
-              )}
-            </div>
-
-            <div class="absolute bottom-0 left-0 h-1 w-0 bg-blue-700 transition-all duration-300 group-hover:w-full"></div>
-          </article>
-        ))
-      }
-    </div>
-
-    <div class="relative mt-16 border-l-4 border-blue-700 py-6 pl-8">
-      <div class="absolute -left-[10px] top-6 h-4 w-4 rotate-45 animate-pulse bg-blue-700" aria-hidden="true"></div>
-      <h3 class="mb-6 text-xl font-semibold tracking-wide">3.2 Project Participation</h3>
-      <p class="max-w-3xl text-base leading-relaxed text-stone-950/80">
-        Members can join any active project by attending our weekly sessions or by contacting the project lead(s).
-      </p>
-    </div>
+  <div class="mt-12">
+    <h3 class="text-base font-semibold">Joining a project</h3>
+    <p class="mt-2 text-base leading-[1.7] text-muted">
+      To join an active project, come to a weekly meeting or contact the project leads.
+    </p>
   </div>
 </section>

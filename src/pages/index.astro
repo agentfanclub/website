@@ -11,15 +11,13 @@ import FooterSection from "../components/sections/FooterSection.astro";
 ---
 
 <BaseLayout title="Home - Agent Fan Club">
-  <div class="min-h-screen">
-    <HeaderSection />
-    <main>
-      <IntroSection />
-      <LeadershipSection />
-      <ProjectsSection />
-      <SponsorsSection />
-      <BlogSection />
-    </main>
-    <FooterSection />
-  </div>
+  <HeaderSection />
+  <main class="mx-auto w-full max-w-4xl px-6">
+    <IntroSection />
+    <LeadershipSection />
+    <ProjectsSection />
+    <SponsorsSection />
+    <BlogSection />
+  </main>
+  <FooterSection />
 </BaseLayout>

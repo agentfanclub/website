@@ -1,13 +1,14 @@
 ---
 import "../../styles/global.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeaderSection from "../../components/sections/HeaderSection.astro";
+import FooterSection from "../../components/sections/FooterSection.astro";
 import { getCollection } from "astro:content";
 
 const postsCollection = await getCollection("blog");
 postsCollection.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const posts = postsCollection.map((post, index) => ({
-  id: `${index + 1}`,
+const posts = postsCollection.map((post) => ({
   slug: post.id,
   title: post.data.title,
   description: post.data.description,
@@ -19,92 +20,41 @@ const posts = postsCollection.map((post, index) => ({
 ---
 
 <BaseLayout title="Blog - Agent Fan Club">
-  <header class="sticky top-0 z-50 border-b-2 border-stone-950 bg-stone-50/95 backdrop-blur-sm">
-    <div class="mx-auto flex w-full max-w-[1600px] items-center justify-between px-6 py-6 md:px-8">
-      <a href="/" class="group flex items-center gap-4">
-        <span class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-blue-700 transition-all duration-200 group-hover:-translate-x-1">
-          ←
-        </span>
-        <span class="text-2xl font-bold tracking-tight md:text-[28px]">Agent Fan Club</span>
-      </a>
+  <HeaderSection />
 
-      <a
-        href="https://discord.gg/gWUnUwenSV"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group relative overflow-hidden bg-stone-950 px-6 py-3 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-50 md:px-8"
-      >
-        <span class="relative z-10 transition-colors duration-300 group-hover:text-stone-50">Join Discord</span>
-        <span class="absolute inset-0 translate-y-full bg-blue-700 transition-transform duration-300 group-hover:translate-y-0"></span>
-      </a>
-    </div>
-  </header>
+  <main class="hue-magenta mx-auto w-full max-w-4xl px-6 pb-16 pt-24 md:pt-32">
+    <h1 class="text-[2rem] font-semibold leading-[1.1] tracking-[-0.02em] md:text-[2.5rem]">Blog</h1>
+    <p class="mt-4 text-lg text-muted">{posts.length === 1 ? "1 post" : `${posts.length} posts`}</p>
 
-  <main class="mx-auto w-full max-w-[1600px] px-6 py-16 md:px-8 md:py-24">
-    <div class="mb-12 flex items-baseline gap-4">
-      <span class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-blue-700">
-        {posts.length} posts
-      </span>
-      <h1 class="text-3xl font-bold tracking-tight md:text-5xl">
-        All Blog Posts
-      </h1>
-      <div class="ml-6 h-px flex-1 self-center bg-stone-950/20"></div>
-    </div>
-
-    <div class="space-y-2">
-      {
-        posts.map((post) => (
-          <a href={`/blogs/${post.slug}`} class="block">
-            <article class="group relative border-l-[3px] border-stone-950 py-6 pl-8 transition-all duration-300 hover:border-blue-700 hover:bg-stone-100/70">
-              <span class="absolute -left-[7px] top-8 h-3 w-3 rotate-45 bg-stone-950 transition-all duration-500 group-hover:scale-125 group-hover:rotate-[405deg] group-hover:bg-blue-700" />
-
-              <div class="flex items-start justify-between gap-8">
-                <div class="flex-1 space-y-3">
-                  <div class="flex flex-wrap items-baseline gap-4">
-                    <span class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950/70 transition-colors duration-200 group-hover:text-blue-700">
-                      {post.id}
-                    </span>
-                    <h2 class="text-2xl font-semibold tracking-wide transition-all duration-300 group-hover:translate-x-2 group-hover:text-blue-700">
-                      {post.title}
-                    </h2>
-                  </div>
-
-                  <p class="max-w-2xl text-base leading-relaxed text-stone-950/70">
-                    {post.description}
-                  </p>
-
-                  <div class="flex flex-wrap items-center gap-4 md:gap-6">
-                    <span class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.05em] text-stone-600">
-                      {post.date}
-                    </span>
-                    <span class="text-sm text-stone-950/70">by {post.author}</span>
-                    <div class="flex gap-2">
-                      {
-                        post.topics.map((topic) => (
-                          <span class="border border-stone-950/20 bg-stone-100 px-2 py-1 font-['JetBrains_Mono'] text-xs font-semibold transition-all duration-300 group-hover:border-blue-700 group-hover:bg-blue-50">
-                            {topic}
-                          </span>
-                        ))
-                      }
-                    </div>
-                    <span class="text-xs text-stone-600">{post.readTime}</span>
-                  </div>
-                </div>
-
-                <span class="font-['JetBrains_Mono'] text-lg font-bold text-blue-700 opacity-0 transition-all duration-300 group-hover:translate-x-2 group-hover:opacity-100">
-                  →
+    {
+      posts.length > 0 ? (
+        <ul class="mt-14 divide-y divide-line border-t-2 border-b border-t-hue border-b-line">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blogs/${post.slug}`} class="group grid gap-1 py-7 sm:grid-cols-[7.5rem_1fr] sm:gap-6">
+                <span class="text-sm leading-6 text-hue-ink tabular-nums">{post.date}</span>
+                <span>
+                  <span class="block font-medium group-hover:text-hue-ink">{post.title}</span>
+                  <span class="mt-2 block text-[15px] leading-[1.6] text-muted">{post.description}</span>
+                  <span class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted">
+                    <span>{post.author}</span>
+                    <span>{post.readTime}</span>
+                    {post.topics.length > 0 && (
+                      <span class="flex flex-wrap gap-1.5">
+                        {post.topics.map((topic) => <span class="tag">{topic}</span>)}
+                      </span>
+                    )}
+                  </span>
                 </span>
-              </div>
-            </article>
-          </a>
-        ))
-      }
-    </div>
-
-    {posts.length === 0 && (
-      <div class="border-l-[3px] border-stone-950/20 py-12 pl-8">
-        <p class="font-['JetBrains_Mono'] text-sm text-stone-950/60">No posts yet. Check back soon.</p>
-      </div>
-    )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-14 text-base text-muted">No posts yet.</p>
+      )
+    }
   </main>
+
+  <FooterSection />
 </BaseLayout>

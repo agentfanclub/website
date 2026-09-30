@@ -1,20 +1,30 @@
-<header class="sticky top-0 z-50 border-b-2 border-stone-950 bg-stone-50/95 backdrop-blur-sm">
-  <div class="mx-auto flex w-full max-w-[1600px] items-start justify-between px-6 py-6 md:px-8">
-    <div class="space-y-2">
-      <p class="text-2xl font-bold tracking-tight md:text-[28px]">Agent Fan Club</p>
-      <p class="font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-950/70">
-        UIUC / Siebel Center for CS
-      </p>
-    </div>
+---
+const nav = [
+  { label: "Projects", href: "/#projects", hue: "hue-jade" },
+  { label: "Sponsors", href: "/#sponsors", hue: "hue-saffron" },
+  { label: "Blog", href: "/blogs", hue: "hue-magenta" },
+];
+---
 
+<header class="mx-auto flex w-full max-w-4xl items-center justify-between gap-6 px-6 pt-8">
+  <a href="/" class="text-[15px] font-semibold tracking-[-0.01em] text-ink">Agent Fan Club</a>
+
+  <nav class="flex items-center gap-5 text-sm text-muted sm:gap-6">
+    {
+      nav.map((item) => (
+        <a href={item.href} class:list={[item.hue, "hidden items-center gap-2 hover:text-hue-ink sm:inline-flex"]}>
+          <span class="dot" aria-hidden="true" />
+          {item.label}
+        </a>
+      ))
+    }
     <a
       href="https://discord.gg/gWUnUwenSV"
       target="_blank"
       rel="noopener noreferrer"
-      class="group relative overflow-hidden bg-stone-950 px-6 py-3 font-['JetBrains_Mono'] text-xs font-semibold tracking-[0.1em] text-stone-50 md:px-8"
+      class="font-medium text-cobalt-ink underline decoration-cobalt/30 decoration-1 underline-offset-4 hover:decoration-cobalt"
     >
-      <span class="relative z-10 transition-colors duration-300 group-hover:text-stone-50">Join Discord</span>
-      <span class="absolute inset-0 translate-y-full bg-blue-700 transition-transform duration-300 group-hover:translate-y-0"></span>
+      Join Discord
     </a>
-  </div>
+  </nav>
 </header>

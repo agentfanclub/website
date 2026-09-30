@@ -15,7 +15,7 @@ interface Props {
 
 const SITE_URL = "https://agentfanclub.org";
 const DEFAULT_DESCRIPTION =
-  "Agent Fan Club is the special interest group at the University of Illinois Urbana-Champaign for agentic AI applications. Meet some agent enthusiasts and learn how to best use AI agents!";
+  "Agent Fan Club is a student group at the University of Illinois Urbana-Champaign for people who use and build AI agents. Meet other students and learn how to use agents well.";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
 const {
@@ -64,10 +64,10 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#fcfcfd" />
   </head>
-  <body class="relative bg-stone-50 text-stone-950 antialiased font-['Space_Grotesk']">
+  <body class="bg-paper font-sans text-[16px] leading-normal text-ink antialiased">
     <slot />
   </body>
 </html>

@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: "Instrument Sans";
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("/fonts/space-grotesk-latin.woff2") format("woff2");
+  src: url("/fonts/instrument-sans-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
     U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -20,4 +20,199 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
     U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/*
+  Theme: a cool white page, ink text, and five accent hues.
+  Each hue comes in three strengths:
+  - base: dots, rules, fills
+  - ink:  text on paper (>= 4.5:1)
+  - tint: pill and callout backgrounds
+  Every homepage section owns one hue (see .hue-* below):
+  overview = cobalt, leadership = vermilion, projects = jade,
+  sponsors = saffron, blog = magenta. Silver and bronze exist only
+  for sponsor tiers.
+*/
+:root {
+  --paper: oklch(0.993 0.002 250);
+  --ink: oklch(0 0 0);
+  --muted: oklch(0.47 0.014 262);
+  --faint: oklch(0.62 0.012 262);
+  --line: oklch(0.91 0.006 262);
+  --wash: oklch(0.968 0.005 262);
+
+  --cobalt: oklch(0.55 0.21 264);
+  --cobalt-ink: oklch(0.48 0.2 264);
+  --cobalt-tint: oklch(0.95 0.03 264);
+
+  --vermilion: oklch(0.64 0.21 33);
+  --vermilion-ink: oklch(0.53 0.19 33);
+  --vermilion-tint: oklch(0.955 0.03 35);
+
+  --jade: oklch(0.66 0.16 155);
+  --jade-ink: oklch(0.48 0.12 155);
+  --jade-tint: oklch(0.955 0.04 155);
+
+  --saffron: oklch(0.8 0.16 80);
+  --saffron-ink: oklch(0.53 0.12 65);
+  --saffron-tint: oklch(0.96 0.055 88);
+
+  --magenta: oklch(0.59 0.24 352);
+  --magenta-ink: oklch(0.51 0.22 352);
+  --magenta-tint: oklch(0.955 0.03 352);
+
+  --silver: oklch(0.7 0.02 255);
+  --silver-ink: oklch(0.47 0.025 255);
+  --silver-tint: oklch(0.95 0.008 255);
+
+  --bronze: oklch(0.62 0.12 55);
+  --bronze-ink: oklch(0.5 0.1 50);
+  --bronze-tint: oklch(0.95 0.025 60);
+
+  /* The "current" hue; sections override it. */
+  --hue: var(--cobalt);
+  --hue-ink: var(--cobalt-ink);
+  --hue-tint: var(--cobalt-tint);
+
+  --accent: var(--cobalt);
+  --accent-ink: oklch(0.99 0 0);
+  color-scheme: light;
+}
+
+.hue-cobalt { --hue: var(--cobalt); --hue-ink: var(--cobalt-ink); --hue-tint: var(--cobalt-tint); }
+.hue-vermilion { --hue: var(--vermilion); --hue-ink: var(--vermilion-ink); --hue-tint: var(--vermilion-tint); }
+.hue-jade { --hue: var(--jade); --hue-ink: var(--jade-ink); --hue-tint: var(--jade-tint); }
+.hue-saffron { --hue: var(--saffron); --hue-ink: var(--saffron-ink); --hue-tint: var(--saffron-tint); }
+.hue-magenta { --hue: var(--magenta); --hue-ink: var(--magenta-ink); --hue-tint: var(--magenta-tint); }
+.hue-silver { --hue: var(--silver); --hue-ink: var(--silver-ink); --hue-tint: var(--silver-tint); }
+.hue-bronze { --hue: var(--bronze); --hue-ink: var(--bronze-ink); --hue-tint: var(--bronze-tint); }
+
+@theme inline {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-wash: var(--wash);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-hue: var(--hue);
+  --color-hue-ink: var(--hue-ink);
+  --color-hue-tint: var(--hue-tint);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-ink: var(--cobalt-ink);
+  --color-cobalt-tint: var(--cobalt-tint);
+  --color-vermilion: var(--vermilion);
+  --color-vermilion-ink: var(--vermilion-ink);
+  --color-vermilion-tint: var(--vermilion-tint);
+  --color-jade: var(--jade);
+  --color-jade-ink: var(--jade-ink);
+  --color-jade-tint: var(--jade-tint);
+  --color-saffron: var(--saffron);
+  --color-saffron-ink: var(--saffron-ink);
+  --color-saffron-tint: var(--saffron-tint);
+  --color-magenta: var(--magenta);
+  --color-magenta-ink: var(--magenta-ink);
+  --color-magenta-tint: var(--magenta-tint);
+  --color-silver: var(--silver);
+  --color-silver-ink: var(--silver-ink);
+  --color-silver-tint: var(--silver-tint);
+  --color-bronze: var(--bronze);
+  --color-bronze-ink: var(--bronze-ink);
+  --color-bronze-tint: var(--bronze-tint);
+}
+
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--hue) 24%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--hue);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Plain inline text link: quiet underline that takes the section hue on hover.
+     Only .link and .btn animate; nav links change color instantly. */
+  .link {
+    color: var(--ink);
+    text-decoration-line: underline;
+    text-decoration-color: var(--line);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 150ms, color 150ms;
+  }
+  .link:hover {
+    color: var(--hue-ink);
+    text-decoration-color: var(--hue);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2.5rem;
+    padding-inline: 1.125rem;
+    border-radius: 3px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: background-color 150ms, color 150ms, border-color 150ms;
+  }
+  .btn-primary {
+    background: var(--cobalt);
+    color: var(--accent-ink);
+  }
+  .btn-primary:hover {
+    background: var(--cobalt-ink);
+  }
+  .btn-quiet {
+    border: 1px solid var(--hue);
+    color: var(--hue-ink);
+  }
+  .btn-quiet:hover {
+    background: var(--hue-tint);
+  }
+
+  /* Pill: tinted background, hue text. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: 1.5rem;
+    padding-inline: 0.5rem;
+    border-radius: 3px;
+    background: var(--hue-tint);
+    color: var(--hue-ink);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* Status / identity dot. */
+  .dot {
+    display: inline-block;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 9999px;
+    background: var(--hue);
+    flex-shrink: 0;
+  }
 }

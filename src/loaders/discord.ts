@@ -41,7 +41,7 @@ export function discordStatsLoader(): Loader {
       }
 
       const guild = await res.json();
-      const count = guild.approximate_member_count ?? '—';
+      const count = guild.approximate_member_count ?? fallback_membercount;
 
       store.set({
         id: 'members',

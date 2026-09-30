@@ -1,18 +1,16 @@
 ---
 interface Props {
-  type: "info" | "warning";
+  type?: "info" | "warning";
 }
 
-const { type } = Astro.props;
-
-const colorClasses =
-  type === "warning"
-    ? "border-red-500 bg-red-500/5"
-    : "border-blue-700 bg-blue-700/5";
+const { type = "info" } = Astro.props;
 ---
 
-<div class={`border-l-4 py-4 px-6 ${colorClasses}`}>
-  <p class="text-base leading-relaxed text-stone-950/80">
-    <slot />
-  </p>
-</div>
+<p
+  class:list={[
+    "rounded-[3px] px-4 py-3 text-[15px] leading-relaxed text-ink",
+    type === "warning" ? "hue-vermilion bg-hue-tint" : "bg-hue-tint",
+  ]}
+>
+  <slot />
+</p>

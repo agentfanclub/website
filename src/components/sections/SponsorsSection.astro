@@ -1,5 +1,6 @@
 ---
 import SectionLabel from "../ui/SectionLabel.astro";
+import Callout from "../ui/Callout.astro";
 import { getCollection } from 'astro:content';
 
 const sponsorsCollection = await getCollection('sponsors');
@@ -12,138 +13,69 @@ const sponsors = sponsorsCollection.map((sponsor) => ({
   logo: sponsor.data.logo,
 }));
 
+// Tier colors: gold in saffron, silver in cool grey, bronze in copper.
+const tierHue = {
+  Gold: "hue-saffron",
+  Silver: "hue-silver",
+  Bronze: "hue-bronze",
+} as const;
+
 const benefits = [
-  { id: "A", title: "Talent Pipeline Access", desc: "Direct connection to skilled students" },
-  { id: "B", title: "Brand Visibility", desc: "Logo on site, social, all events" },
-  { id: "C", title: "Workshop Hosting", desc: "Present talks & host technical sessions" },
-  { id: "D", title: "Project Collaboration", desc: "Sponsor specific student projects" },
+  { title: "Recruiting", desc: "Meet skilled students directly." },
+  { title: "Brand visibility", desc: "Your logo on our site, our social accounts, and every event." },
+  { title: "Workshops", desc: "Give talks and run technical sessions." },
+  { title: "Project collaboration", desc: "Sponsor specific student projects." },
 ];
 ---
 
-<section id="sponsors" class="relative overflow-hidden border-t-2 border-stone-950 py-20 md:py-24 scroll-mt-24">
-  <div
-    class="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_50%_50%,rgba(0,71,255,0.15)_0%,transparent_60%)]"
-    aria-hidden="true"
-  ></div>
+<section id="sponsors" class="hue-saffron scroll-mt-12 py-16 md:py-20">
+  <SectionLabel title="Sponsors" />
 
-  <div class="relative z-10 mx-auto w-full max-w-[1600px] px-6 md:px-8">
-    <SectionLabel number="4.0" title="Sponsorship Program" />
+  <div class="space-y-6 text-base leading-[1.7]">
+    <p>
+      Sponsorships from companies and institutions pay for agent subscriptions, compute, and events. In return,
+      sponsors get direct access to students who build with AI.
+    </p>
 
-    <div class="grid grid-cols-12 gap-8 lg:gap-12">
-      <div class="col-span-12 space-y-8 lg:col-span-7">
-        <div class="space-y-6 text-[15px] leading-[1.8]">
-          <p class="opacity-90">
-            Corporate and institutional sponsorships provide the funding needed for agent subscriptions, 
-            computing resources, and event hosting. In return, sponsors gain direct access to talented, accomplished students 
-            who are passionate about developing with AI.
-          </p>
+    <Callout type="info">
+      Our exec board and ACM @ UIUC review and approve every sponsorship agreement. We don't accept exclusive
+      recruiting arrangements.
+    </Callout>
+  </div>
 
-          <div class="relative overflow-hidden border-l-[3px] border-blue-700 bg-blue-50 p-6">
-            <div class="absolute left-0 top-0 h-full w-1 animate-pulse bg-blue-700" aria-hidden="true"></div>
-            <p class="mb-2 ml-3 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] text-blue-700">◆ INFO</p>
-            <p class="ml-3 text-base leading-relaxed">
-              All sponsorship agreements are reviewed and approved by our exec board and ACM @ UIUC. No exclusive
-              recruiting arrangements will be accepted.
-            </p>
-          </div>
-        </div>
-
-        <div class="overflow-hidden border-2 border-stone-950 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div class="flex items-center justify-between bg-stone-950 p-4 text-stone-50">
-            <span class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em]">Current Sponsors (FA2026)</span>
-            <div class="flex gap-2" aria-hidden="true">
-              <span class="h-2 w-2 animate-pulse bg-blue-400"></span>
-              <span class="h-2 w-2 animate-pulse bg-blue-400 [animation-delay:200ms]"></span>
-              <span class="h-2 w-2 animate-pulse bg-blue-400 [animation-delay:400ms]"></span>
-            </div>
-          </div>
-
-          <table class="w-full">
-            <thead>
-              <tr class="border-b-2 border-stone-950 bg-stone-100">
-                <th class="p-4 text-left font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950/70">
-                  Organization
-                </th>
-                <th class="p-4 text-left font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950/70">Tier</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                sponsors.map((sponsor, index) => (
-                  <tr class="group border-b border-stone-950/10 transition-colors duration-200 hover:bg-stone-100">
-                    <td class="p-4">
-                      <div class="flex items-center gap-4">
-                        <span class="flex h-10 w-10 items-center justify-center border-2 border-stone-950 p-2 transition-all duration-300 group-hover:scale-110 group-hover:border-blue-700">
-                          <img src={sponsor.logo} alt="" class="h-full w-full object-contain" loading="lazy" />
-                        </span>
-                        <span class="text-base font-semibold transition-transform duration-200 group-hover:translate-x-1">
-                          {sponsor.name}
-                        </span>
-                      </div>
-                    </td>
-                    <td class="p-4">
-                      <span
-                        class={`inline-block border border-stone-950 px-3 py-1 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-950 ${
-                          sponsor.tier === "Gold" ? "bg-amber-300" : "bg-zinc-300"
-                        }`}
-                      >
-                        {sponsor.tier}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <aside class="col-span-12 space-y-6 lg:col-span-5">
-        <div
-          class="border-2 border-stone-950 bg-white p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]"
-        >
-          <p class="mb-8 border-b-2 border-stone-950/10 pb-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-stone-600">
-            4.1 Sponsor Benefits
-          </p>
-
-          <div class="space-y-6">
-            {
-              benefits.map((benefit) => (
-                <div class="group/benefit flex gap-4 transition-transform duration-300 hover:translate-x-2">
-                  <span class="flex h-8 w-8 shrink-0 items-center justify-center bg-stone-950 font-['JetBrains_Mono'] text-sm font-bold text-stone-50 transition-all duration-500 group-hover/benefit:rotate-[360deg] group-hover/benefit:bg-blue-700">
-                    {benefit.id}
-                  </span>
-                  <div class="pt-1">
-                    <p class="mb-1 text-base font-semibold transition-colors duration-300 group-hover/benefit:text-blue-700">
-                      {benefit.title}
-                    </p>
-                    <p class="text-sm leading-relaxed text-stone-950/70">{benefit.desc}</p>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-
-        <div class="group relative overflow-hidden bg-stone-950 p-8 text-stone-50">
-          <div
-            class="absolute right-0 top-0 h-32 w-32 bg-blue-700/20 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:bg-blue-700/40"
-            aria-hidden="true"
-          ></div>
-
-          <p class="relative z-10 mb-4 font-['JetBrains_Mono'] text-xs font-bold tracking-[0.15em] opacity-85">Become a Sponsor</p>
-
-          <a href="mailto:sponsors@agentfanclub.org" class="group/cta relative z-10 block">
-            <span
-              class="relative block w-full overflow-hidden border-2 border-blue-700 bg-blue-700 py-4 text-center font-['JetBrains_Mono'] text-sm font-bold tracking-[0.1em] transition-all duration-300 group-hover/cta:border-stone-50 group-hover/cta:bg-stone-50 group-hover/cta:text-blue-700"
-            >
-              Request Info →
+  <div class="mt-14">
+    <h3 class="text-base font-semibold">Current sponsors, fall 2026</h3>
+    <ul class="mt-3 divide-y divide-line border-t-2 border-b border-t-hue border-b-line">
+      {
+        sponsors.map((sponsor) => (
+          <li class="flex items-center justify-between gap-4 py-4">
+            <span class="flex items-center gap-3">
+              <img src={sponsor.logo} alt="" class="size-5 object-contain" loading="lazy" />
+              <span class="font-medium">{sponsor.name}</span>
             </span>
-          </a>
+            <span class:list={[tierHue[sponsor.tier], "tag"]}>{sponsor.tier}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 
-          <p class="relative z-10 mt-4 text-center text-xs opacity-85">sponsors@agentfanclub.org</p>
-        </div>
-      </aside>
-    </div>
+  <div class="mt-14">
+    <h3 class="text-base font-semibold">What sponsors get</h3>
+    <dl class="mt-5 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+      {
+        benefits.map((benefit) => (
+          <div>
+            <dt class="flex items-center gap-2.5 font-medium"><span class="dot" aria-hidden="true" />{benefit.title}</dt>
+            <dd class="mt-1 pl-[1.0625rem] text-[15px] leading-[1.6] text-muted">{benefit.desc}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <div class="mt-14 flex flex-wrap items-center gap-x-6 gap-y-4">
+    <a href="mailto:sponsors@agentfanclub.org" class="btn btn-quiet">Become a sponsor</a>
+    <a href="mailto:sponsors@agentfanclub.org" class="link text-sm text-muted">sponsors@agentfanclub.org</a>
   </div>
 </section>
